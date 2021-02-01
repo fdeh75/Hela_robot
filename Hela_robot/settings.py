@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'mluzwx+hlk+nid7!92ir2^gdk!^s7e6+y7psjkps%%cmvbj=m&'
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -37,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'plats_bank',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
