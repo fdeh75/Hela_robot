@@ -1,38 +1,7 @@
 {% extends "../base.html" %}
 {% block content %}
-
-    <form action="" method="post" class="form-inline my-2 mx-2">
-        {% csrf_token %}
-        {{ form }}
+    <form action="{% url 'list' %}" method="get" class="form-inline my-2 mx-2">
+        {% csrf_token %}{{ form }}
         <button type="submit" class="btn btn-primary">Sök Jobb</button>
     </form>
-    <div class="card-columns">
-        {% for obj in object_list %}
-
-            <div class="card text-center my-2">
-                <div class="card-header">{{ obj.company }}<br>{{ obj.city }}</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ obj.title }}</h5>
-                    <p class="card-text">{{ obj.description|slice:":150" }}...</p>
-                    <a href="{{ obj.ad_url }}" class="btn btn-primary">Ansök om tjänst</a>
-                </div>
-                <div class="card-footer text-muted">
-                    <div>{{ obj.job_type }}</div>
-                    <div style="color: #ff0000">{{ obj.application_deadline|slice:":10" }}</div>
-                </div>
-            </div>
-        {% empty %}
-            <div class="card text-center my-2">
-                <div class="card-header">Inget Att vissa</div>
-                <div class="card-body alert alert-warning my-0">
-                    <h5 class="card-title">Testa annan gång</h5>
-                    <p class="card-text">Sök igenom</p>
-                </div>
-                <div class="card-footer text-muted">
-                    <div></div>
-                    <div style="color: #ff0000"></div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
 {% endblock %}

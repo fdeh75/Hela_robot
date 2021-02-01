@@ -55,17 +55,19 @@ def jobb_type_list_maker():
 
 def job_ads_url_maker(lau_2_code_2015, af_id):
     job_ads_url = 'https://jobsearch.api.jobtechdev.se/search?'
-    q = 'occupation-group=' + af_id + '&municipality=' + lau_2_code_2015 + '&offset=0&limit=1'
+    q = 'occupation-group=' + af_id + '&municipality=' + lau_2_code_2015 + '&offset=0&limit=100'
     return job_ads_url + q
 
 
 def job_ad_finder():
-    citys = City.objects.all()
+    # citys = City.objects.all()
+    citys = ['1480']
     for city_obj in citys:
         job_types = Job_type.objects.all()
         for job_type in job_types:
             job_type_code = str(job_type.af_id)
-            url = job_ads_url_maker(str(city_obj.lau_2_code_2015), job_type_code)
+            # url = job_ads_url_maker(str(city_obj.lau_2_code_2015), job_type_code)
+            url = job_ads_url_maker(str(city_obj), job_type_code)
             response = requests.get(url, headers=headers)
             response.raise_for_status()  # check for http errors
             json_response = json.loads(response.content.decode('utf8'))
@@ -80,7 +82,8 @@ def job_ad_finder():
                         title = hit['headline']
                         description = hit['description']['text']
                         company = hit['employer']['name']
-                        city = City.objects.get(lau_2_code_2015=str(city_obj.lau_2_code_2015))
+                        # city = City.objects.get(lau_2_code_2015=str(city_obj.lau_2_code_2015))
+                        city = City.objects.get(lau_2_code_2015=str(city_obj))
                         job_type = (Job_type.objects.get(af_id=job_type_code))
                         application_deadline = hit['application_deadline']
                         try:

@@ -16,6 +16,7 @@ class MyUserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
+            city=self.city
             # date_of_birth=date_of_birth,
         )
 
@@ -48,16 +49,16 @@ class MyUser(AbstractBaseUser):
     # date_of_birth = models.DateField()
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    city = models.ForeignKey('plats_bank.City', on_delete=models.SET_NULL(),
+    city = models.ForeignKey('plats_bank.City', on_delete=models.SET_NULL,
                              null=True, blank=True)
-    jobb_type = models.ForeignKey('plats_bank.Job_type', on_delete=models.SET_NULL(),
+    jobb_type = models.ForeignKey('plats_bank.Job_type', on_delete=models.SET_NULL,
                                   null=True, blank=True)
 
     send_email = models.BooleanField(default=True)
-    objects = UserManager()
+    objects = MyUserManager()
 
     USERNAME_FIELD = 'email'
-
+    REQUIRED_FIELDS = []
     # REQUIRED_FIELDS = ['date_of_birth']
 
     def __str__(self):

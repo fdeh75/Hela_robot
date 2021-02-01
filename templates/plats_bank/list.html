@@ -1,0 +1,88 @@
+{% extends "../base.html" %}
+{% block content %}
+    {% csrf_token %}
+    <form action="" method="get" class="form-inline my-2 mx-2">
+        {{ form }}
+        <button type="submit" class="btn btn-primary">Sök Jobb</button>
+    </form>
+    <nav aria-label="...">
+        {% if object_list %}
+            <ul class="pagination">
+                {% if object_list.has_previous %}
+                    <li class="page-item "><a class="page-link"
+                                              href="?city={{ city }}&{{ job_type }}&page={{ object_list.previous_page_number }}"
+                                              tabindex="-1">Föra sida</a></li>
+                {% endif %}
+                {% for page in object_list.paginator.page_range %}
+                    {% if forloop.counter < 10 %}
+                        <li class="page-item{% if page == object_list.number %} active {% endif %}"><a class="page-link"
+                                                                                                       href="?city={{ city }}&{{ job_type }}&page={{ forloop.counter }}">{{ page }}</a>
+                        </li>
+                    {% endif %}
+                    {#                    <li class="page-item{% if page == object_list.number %} active {% endif %}"><a class="page-link"#}
+                    {#                                             href="?city={{ city }}&{{ job_type }}&page={{ page }}">{{ page }}</a></li>#}
+                {% endfor %}
+                {% if object_list.has_next %}
+                    <li class="page-item"><a class="page-link"
+                                             href="?city={{ city }}&{{ job_type }}&page={{ object_list.next_page_number }}">Nästa
+                        sida</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        {% endif %}
+    </nav>
+    <div class="card-columns">
+        {% for obj in object_list %}
+            <div class="card text-center my-2">
+                <div class="card-header">{{ obj.company }}<br>{{ obj.city }}</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ obj.title }}</h5>
+                    <p class="card-text">{{ obj.description|slice:":150" }}...</p>
+                    <a href="{{ obj.ad_url }}" class="btn btn-success">Ansök om tjänst</a>
+                </div>
+                <div class="card-footer text-muted">
+                    <div>{{ obj.job_type }}</div>
+                    <div style="color: #ff0000">{{ obj.application_deadline|slice:":10" }}</div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="card text-center my-2">
+                <div class="card-header">Inget Att vissa</div>
+                <div class="card-body alert alert-warning my-0">
+                    <h5 class="card-title">Testa annan gång</h5>
+                    <p class="card-text">Sök igenom</p>
+                </div>
+                <div class="card-footer text-muted">
+                    <div></div>
+                    <div style="color: #ff0000"></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <nav aria-label="...">
+        {% if object_list %}
+            <ul class="pagination">
+                {% if object_list.has_previous %}
+                    <li class="page-item"><a class="page-link"
+                                             href="?city={{ city }}&{{ job_type }}&page={{ object_list.previous_page_number }}"
+                                             tabindex="-1">Föra sida</a></li>
+                {% endif %}
+                {% for page in object_list.paginator.page_range %}
+                    {% if forloop.counter < 10 %}
+                        <li class="page-item{% if page == object_list.number %} active {% endif %}"><a class="page-link"
+                                                                                                       href="?city={{ city }}&{{ job_type }}&page={{ forloop.counter }}">{{ page }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% if object_list.has_next %}
+                    <li class="page-item"><a class="page-link"
+                                             href="?city={{ city }}&{{ job_type }}&page={{ object_list.next_page_number }}">Nästa
+                        sida</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        {% endif %}
+    </nav>
+{% endblock %}
