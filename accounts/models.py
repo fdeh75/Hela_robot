@@ -3,6 +3,42 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, UserManager
 )
 
+
+class MyUserManager(BaseUserManager):
+    # def create_user(self, email, date_of_birth, password=None):
+    def create_user(self, email, password=None):
+        """
+        Creates and saves a User with the given email, date of
+        birth and password.
+        """
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        user = self.model(
+            email=self.normalize_email(email),
+            # date_of_birth=date_of_birth,
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    # def create_superuser(self, email, date_of_birth, password=None):
+    def create_superuser(self, email, password=None):
+        """
+        Creates and saves a superuser with the given email, date of
+        birth and password.
+        """
+        user = self.create_user(
+            email,
+            password=password,
+            # date_of_birth=date_of_birth,
+        )
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
+
+
 class MyUser(AbstractBaseUser):
     email = models.EmailField(
         verbose_name='email address',
@@ -12,15 +48,16 @@ class MyUser(AbstractBaseUser):
     # date_of_birth = models.DateField()
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    city = models.ForeignKey('City', on_delete=models.SET_NULL(),
+    city = models.ForeignKey('plats_bank.City', on_delete=models.SET_NULL(),
                              null=True, blank=True)
-    jobb_type = models.ForeignKey('Job_type', on_delete=models.SET_NULL(),
-                             null=True, blank=True)
-    
+    jobb_type = models.ForeignKey('plats_bank.Job_type', on_delete=models.SET_NULL(),
+                                  null=True, blank=True)
+
     send_email = models.BooleanField(default=True)
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
     # REQUIRED_FIELDS = ['date_of_birth']
 
     def __str__(self):
