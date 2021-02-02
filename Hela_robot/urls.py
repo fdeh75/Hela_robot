@@ -16,12 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+import schema
 from Hela_robot.views import home
 from plats_bank.views import list_view
+from schema.views import schema_view
+from rapport.views import rapport_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('list/', list_view, name='list'),
     path('', home),
+    path('schema/', schema_view, name='schema'),
+    path('rapport/', rapport_view, name='rapport')
 
 ]

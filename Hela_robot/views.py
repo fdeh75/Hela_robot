@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from plats_bank.forms import FindForm
+from plats_bank.form import FindForm
 
 
 def home(request):

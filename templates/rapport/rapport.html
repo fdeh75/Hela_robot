@@ -1,0 +1,148 @@
+{% extends "../base.html" %}
+{% block content %}
+    <div class="container-xl my-2">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6"><h2>Rapport <b> Manager</b></h2></div>
+                        <div class="col-sm-6">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-info active">
+                                    <input type="radio" name="status" value="all" checked="checked"> All
+                                </label>
+                                <label class="btn btn-success">
+                                    <input type="radio" name="status" value="active"> Sökta jobb
+                                </label>
+                                <label class="btn btn-warning">
+                                    <input type="radio" name="status" value="inactive"> Personlig möte
+                                </label>
+                                <label class="btn btn-danger">
+                                    <input type="radio" name="status" value="expired"> Annat
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Deltagare</th>
+                        <th>Datum</th>
+                        <th>Activitet</th>
+                        <th>Handlägare</th>
+                        <th>Handling</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-status="active">
+                        <td>1</td>
+                        <td><a href="#">Ahmed Demo</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-success">Sökt jobb</span></td>
+                        <td>Hella Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                    <tr data-status="inactive">
+                        <td>2</td>
+                        <td><a href="#">Lenart Trial</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-warning">Personlig möte</span></td>
+                        <td>Demo Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                                        <tr data-status="active">
+                        <td>3</td>
+                        <td><a href="#">Ahmed Demo</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-success">Sökt jobb</span></td>
+                        <td>Hella Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                    <tr data-status="inactive">
+                        <td>4</td>
+                        <td><a href="#">Lenart Trial</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-warning">Personlig möte</span></td>
+                        <td>Demo Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                                        <tr data-status="active">
+                        <td>5</td>
+                        <td><a href="#">Ahmed Demo</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-success">Sökt jobb</span></td>
+                        <td>Hella Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                    <tr data-status="inactive">
+                        <td>6</td>
+                        <td><a href="#">Lenart Trial</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-warning">Personlig möte</span></td>
+                        <td>Demo Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                                        <tr data-status="inactive">
+                        <td>4</td>
+                        <td><a href="#">Lenart Trial</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-warning">Personlig möte</span></td>
+                        <td>Demo Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                                        <tr data-status="active">
+                        <td>5</td>
+                        <td><a href="#">Ahmed Demo</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-success">Sökt jobb</span></td>
+                        <td>Hella Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                    <tr data-status="inactive">
+                        <td>6</td>
+                        <td><a href="#">Lenart Trial</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-warning">Personlig möte</span></td>
+                        <td>Demo Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                                        <tr data-status="inactive">
+                        <td>4</td>
+                        <td><a href="#">Lenart Trial</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-warning">Personlig möte</span></td>
+                        <td>Demo Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                                        <tr data-status="active">
+                        <td>5</td>
+                        <td><a href="#">Ahmed Demo</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-success">Sökt jobb</span></td>
+                        <td>Hella Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                    <tr data-status="inactive">
+                        <td>6</td>
+                        <td><a href="#">Lenart Trial</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-warning">Personlig möte</span></td>
+                        <td>Demo Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                    <tr data-status="inactive">
+                        <td>6</td>
+                        <td><a href="#">Lenart Trial</a></td>
+                        <td>{% now "Y F d" %}</td>
+                        <td><span class="label label-warning">Personlig möte</span></td>
+                        <td>Demo Robot</td>
+                        <td><a href="#" class="btn btn-sm manage">Visa</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
