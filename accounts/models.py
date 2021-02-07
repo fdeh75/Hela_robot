@@ -1,7 +1,10 @@
+from django.contrib import admin
 from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, UserManager
 )
+
+from plats_bank.models import Job_type
 
 
 class MyUserManager(BaseUserManager):
@@ -16,7 +19,7 @@ class MyUserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            city=self.city
+            # city=self.city
             # date_of_birth=date_of_birth,
         )
 
@@ -40,42 +43,84 @@ class MyUserManager(BaseUserManager):
         return user
 
 
+class Experiences(models.Model):
+    user = models.ForeignKey('accounts.MyUser', blank=True, null=True, on_delete=models.SET_NULL)
+    company = models.CharField(max_length=20, blank=True, default='', null=True)
+    title = models.CharField(max_length=100, default='', blank=True, null=True)
+    place = models.CharField(max_length=100, default='', blank=True, null=True)
+    between = models.CharField(max_length=100, default='', blank=True, null=True)
+    description = models.TextField(default='', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Erfarenheter'
+        verbose_name_plural = 'Erfarenheter'
+
+    def __str__(self):
+        return str(self.title) + " <=> " + str(self.user.f_name) + " " + str(self.user.l_name)
+
+
+class Employments(models.Model):
+    user = models.ForeignKey('accounts.MyUser', blank=True, null=True, on_delete=models.SET_NULL)
+    company = models.CharField(max_length=20, blank=True, default='', null=True)
+    title = models.CharField(max_length=100, default='', blank=True, null=True)
+    place = models.CharField(max_length=100, default='', blank=True, null=True)
+    between = models.CharField(max_length=100, default='', blank=True, null=True)
+    description = models.TextField(default='', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Anställningar'
+        verbose_name_plural = 'Anställningar'
+
+    def __str__(self):
+        return str(self.title) + " <=> " + str(self.user.f_name) + " " + str(self.user.l_name)
+
+
 class MyUser(AbstractBaseUser):
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
         unique=True,
     )
-    # date_of_birth = models.DateField()
+    date_of_birth = models.DateField(null=True)
+    phone = models.CharField(max_length=20, blank=True, default='', null=True)
+    f_name = models.CharField(max_length=100, default='', blank=True, null=True)
+    l_name = models.CharField(max_length=100, default='', blank=True, null=True)
+    organization = models.CharField(max_length=100, default='', blank=True, null=True)
+    street = models.CharField(max_length=20, blank=True, default='', null=True)
+    zip_code = models.CharField(max_length=100, default='', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     city = models.ForeignKey('plats_bank.City', on_delete=models.SET_NULL,
                              null=True, blank=True)
-    jobb_type = models.ForeignKey('plats_bank.Job_type', on_delete=models.SET_NULL,
-                                  null=True, blank=True)
+    jobb_type = models.ManyToManyField('plats_bank.Job_type',
+                                       null=False, blank=True)
+
+    career_profile = models.TextField(null=False, blank=True)
+    # EXPERIENCES
+    experience = models.ManyToManyField('accounts.Experiences',
+                                        null=False, blank=True)
+    # Employments
+    employment_des = models.TextField(null=False, blank=True)
+    employment = models.ManyToManyField('accounts.Employments',
+                                         null=False, blank=True)
 
     send_email = models.BooleanField(default=True)
     objects = MyUserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
     # REQUIRED_FIELDS = ['date_of_birth']
 
     def __str__(self):
         return self.email
 
     def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
         return True
 
     def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
 
     @property
     def is_staff(self):
-        "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
         return self.is_admin

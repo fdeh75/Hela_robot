@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 import schema
 from Hela_robot.views import home
@@ -25,8 +25,9 @@ from rapport.views import rapport_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('list/', list_view, name='list'),
-    path('', home),
+    path('', home, name='home'),
     path('schema/', schema_view, name='schema'),
-    path('rapport/', rapport_view, name='rapport')
+    path('rapport/', rapport_view, name='rapport'),
+    path('accounts/', include(('accounts.urls','accounts')))
 
 ]
