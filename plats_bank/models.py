@@ -36,8 +36,8 @@ class Job_type(models.Model):
     ssyk_code_2012 = models.CharField(max_length=30, blank=True)
 
     class Meta:
-        verbose_name = 'Arbets yrken'
-        verbose_name_plural = 'Arbets yrken'
+        verbose_name = 'Profession'
+        verbose_name_plural = 'Professions'
 
     def __str__(self):
         return self.name
@@ -54,8 +54,8 @@ class Job_ad(models.Model):
     job_type = models.ForeignKey('Job_type', on_delete=models.CASCADE, verbose_name='Yrke')
 
     class Meta:
-        verbose_name = 'Jobb annons'
-        verbose_name_plural = 'Jobb annonser'
+        verbose_name = 'Jobb list'
+        verbose_name_plural = 'Jobb lists'
 
     def __str__(self):
         return self.title
